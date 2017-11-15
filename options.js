@@ -13,6 +13,22 @@ function deleteForm(e) {
   $targetParent.parentNode.removeChild($targetParent);
 }
 
+
+$form.onclick = (e) => {
+  const $target = e.target;
+  if ($target.className === 'placeholder') {
+    const img = $target.querySelector('img');
+    if (img) {
+      $target.removeChild(img);
+      const $base64 = $target.parentNode.querySelector('[name="base64"]');
+      if ($base64) {
+        $base64.value = '';
+      }
+    }
+  }
+
+}
+
 $form.onchange = (e) => {
   const $target = e.target;
 
@@ -23,12 +39,20 @@ $form.onchange = (e) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = function () {
+      const placeholder = $wrapper.querySelector('.placeholder');
+      let img = placeholder.querySelector('img');
+      let newImage = false;
       $wrapper.querySelector('.base64').value = reader.result;
-      const img = document.createElement('img');
+      if (!img) {
+        img = document.createElement('img');
+        newImage = true;
+      }
       img.src = reader.result;
-      img.width = 64;
-      img.height = 64;
-      $wrapper.querySelector('.placeholder').appendChild(img);
+      if (newImage) {
+        img.width = 64;
+        img.height = 64;
+        $wrapper.querySelector('.placeholder').appendChild(img);
+      }
     };
     reader.onerror = onError
   }
@@ -73,7 +97,6 @@ function addForm(event) {
   $form.insertBefore($newForm, $lastForm.nextSibling);
 };
 
-
 function getFormData() {
   const faviconForms = $form.querySelectorAll('.favicon-form');
   const dataFromForm = [];
@@ -86,9 +109,6 @@ function getFormData() {
     formData['base64'] = form.querySelector('[name="base64"]').value;
     dataFromForm.push(formData);
   });
-
-  console.log(dataFromForm);
-
   return dataFromForm;
 }
 
@@ -111,9 +131,6 @@ function restoreOptions() {
       }
       // Refresh forms lookup.
       $faviconForms = $form.querySelectorAll('.favicon-form');
-
-      console.log(resultData);
-
       resultData.forEach((item, idx) => {
         const currentForm = $faviconForms[idx];
         currentForm.querySelector('[name="title"]').value = item.title;

@@ -1,15 +1,13 @@
 const SETTINGS_KEY = 'mrl-favicon-customizer';
 let faviconData = [];
 
-function onExecuted(result) {
-  console.log(`Favicon updated`);
-}
-
 function onError(error) {
   console.log(`Error: ${error}`);
 }
 
 function handleTabChange(tabId, changeInfo, tab) {
+  // Inspect the tab when it's completely loaded and find out if we need
+  // to make a favicon change.
   if (changeInfo && changeInfo.status && changeInfo.status === 'complete') {
     faviconData.forEach((item) => {
       let tabMatched = false;
@@ -22,50 +20,22 @@ function handleTabChange(tabId, changeInfo, tab) {
 
       if (tabMatched && item.base64) {
         var executing = browser.tabs.executeScript({
-          code: changeFavicon(item.base64),
+          file: '/change-favicon.js',
         });
-        executing.then(onExecuted, onError);
+        executing
+          .then(() => {
+            return browser.tabs.sendMessage(tab.id, { dataURI: item.base64 });
+          })
+          .catch(onError);
       }
     });
   }
 };
 
 function handleStorageChange(changes) {
-  console.log(changes);
   if (changes[SETTINGS_KEY]) {
     faviconData = changes[SETTINGS_KEY].newValue;
   }
-}
-
-function changeFavicon(base64Data) {
-  return `
-    (function() {
-    const d = document;
-    const w = window;
-    const h = document.getElementsByTagName('head')[0];
-
-    // Create this favicon
-    const lnk = d.createElement('link');
-    lnk.rel = 'shortcut icon';
-    lnk.type = 'image/x-icon';
-    lnk.href = '${base64Data}';
-    // Remove any existing favicons
-    const links = h.getElementsByTagName('link');
-    const listOfRemovals = [];
-
-    for (var i=0, j=links.length; i < j; i++) {
-      const curLink = links[i];
-      if (curLink && (curLink.rel === "shortcut icon" || curLink.rel === "icon")) {
-        listOfRemovals.push(curLink);
-      }
-    }
-
-    for (var i=0, j=listOfRemovals.length; i < j; i++){
-      h.removeChild(listOfRemovals[i]);
-    }
-    // Add this favicon to the head
-    h.appendChild(lnk);
-    return false;})();`;
 }
 
 browser.tabs.onUpdated.addListener(handleTabChange);
