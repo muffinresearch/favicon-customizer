@@ -1,0 +1,23 @@
+{
+  "name": "favicon-customizer",
+  "description": "This extension allows you to customize the favicon for a given host + page title match.",
+  "version": "0.1",
+  "manifest_version": 2,
+  "applications": {
+    "gecko": {
+      "id": "favicon-customizer@muffinresearch.co.uk"
+    }
+  },
+  "permissions": [
+    "<all_urls>",
+    "tabs",
+    "storage"
+  ],
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+  "options_ui": {
+    "page": "options.html"
+  }
+}

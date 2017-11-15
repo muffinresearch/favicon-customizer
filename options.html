@@ -1,0 +1,34 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="chrome://global/skin/in-content/common.css" />
+    <link rel="stylesheet" href="options.css" />
+  </head>
+  <body>
+    <form id="custom-favicons">
+      <div class="favicon-form">
+        <h2>Custom Favicon 1</h2>
+        <div class="wrapper">
+          <div class="form-block">
+            <label><span>Title:</span><input type="text" name="title" placeholder="My Favicon Name"></label>
+            <label><span>Origin:</span><input type="text" name="origin" placeholder="https://calendar.google.com"></label>
+            <p class="help">The origin this favicon should be injected into.</p>
+            <label><span>Page title pattern:</span><input type="text" name="title-pattern"></label>
+            <p class="help">A pattern to look for in the page's title element</p>
+            <label><span>Custom favicon:</span><input type="file" name="file" class="file-button"></label>
+            <input type="hidden" name="base64" class="base64" />
+          </div>
+          <div class="placeholder"></div>
+        </div>
+      </div>
+
+      <div class="buttons">
+        <button type="submit">Save Settings</button>
+        <button id="add-favicon">Add</button>
+      </div>
+    </form>
+
+    <hr />
+    <script src="options.js"></script>
+  </body>
+</html>
