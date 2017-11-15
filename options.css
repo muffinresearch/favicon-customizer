@@ -98,3 +98,8 @@ button {
 .form-block {
   flex-grow: 1;
 }
+
+.buttons {
+  padding-bottom: 40px;
+  border-bottom: 1px solid #ccc;
+}
