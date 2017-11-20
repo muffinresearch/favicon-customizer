@@ -25,7 +25,7 @@ function clearFavicons() {
 }
 
 function handleMessage(request, sender) {
-  if (sender.extensionId === 'favicon-customizer@muffinresearch.co.uk') {
+  if (sender.id === 'favicon-customizer@muffinresearch.co.uk') {
     if (request.dataURI && request.dataURI.startsWith('data:image/png')) {
       clearFavicons();
       createFavicon(request.dataURI);
