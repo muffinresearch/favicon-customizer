@@ -2,7 +2,7 @@ const SETTINGS_KEY = 'mrl-favicon-customizer';
 let faviconData = [];
 
 function onError(error) {
-  console.log(`Error: ${error}`);
+  console.error(`Error: ${error}`);
 }
 
 function handleTabChange(tabId, changeInfo, tab) {
@@ -19,7 +19,7 @@ function handleTabChange(tabId, changeInfo, tab) {
       }
 
       if (tabMatched && item.base64) {
-        var executing = browser.tabs.executeScript({
+        const executing = browser.tabs.executeScript({
           file: '/change-favicon.js',
         });
         executing
@@ -30,7 +30,7 @@ function handleTabChange(tabId, changeInfo, tab) {
       }
     });
   }
-};
+}
 
 function handleStorageChange(changes) {
   if (changes[SETTINGS_KEY]) {

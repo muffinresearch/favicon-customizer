@@ -1,5 +1,4 @@
 const d = document;
-const w = window;
 const h = document.getElementsByTagName('head')[0];
 
 function createFavicon(dataURI) {
@@ -14,18 +13,18 @@ function createFavicon(dataURI) {
 function clearFavicons() {
   const links = h.getElementsByTagName('link');
   const listOfRemovals = [];
-  for (var i=0, j=links.length; i < j; i++) {
+  for (let i = 0, j = links.length; i < j; i++) {
     const curLink = links[i];
-    if (curLink && (curLink.rel === "shortcut icon" || curLink.rel === "icon")) {
+    if (curLink && (curLink.rel === 'shortcut icon' || curLink.rel === 'icon')) {
       listOfRemovals.push(curLink);
     }
   }
-  for (var i=0, j=listOfRemovals.length; i < j; i++){
+  for (let i = 0, j = listOfRemovals.length; i < j; i++) {
     h.removeChild(listOfRemovals[i]);
   }
 }
 
-function handleMessage(request, sender) {
+function handleMessage(request) {
   if (request.dataURI) {
     clearFavicons();
     createFavicon(request.dataURI);

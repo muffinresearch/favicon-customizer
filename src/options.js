@@ -3,16 +3,8 @@ const $form = document.getElementById('custom-favicons');
 const $addButton = document.getElementById('add-favicon');
 
 function onError(error) {
-  console.log(`Error: ${error}`);
+  console.error(`Error: ${error}`);
 }
-
-function deleteForm(e) {
-  e.preventDefault();
-  e.stopPropagation();
-  const $targetParent = e.target.parentNode;
-  $targetParent.parentNode.removeChild($targetParent);
-}
-
 
 $form.onclick = (e) => {
   const $target = e.target;
@@ -26,8 +18,7 @@ $form.onclick = (e) => {
       }
     }
   }
-
-}
+};
 
 $form.onchange = (e) => {
   const $target = e.target;
@@ -38,7 +29,7 @@ $form.onchange = (e) => {
     const file = $target.files[0];
     const reader = new FileReader();
     reader.readAsDataURL(file);
-    reader.onload = function () {
+    reader.onload = () => {
       const placeholder = $wrapper.querySelector('.placeholder');
       let img = placeholder.querySelector('img');
       let newImage = false;
@@ -54,9 +45,32 @@ $form.onchange = (e) => {
         $wrapper.querySelector('.placeholder').appendChild(img);
       }
     };
-    reader.onerror = onError
+    reader.onerror = onError;
   }
 };
+
+function getFormData() {
+  const faviconForms = $form.querySelectorAll('.favicon-form');
+  const dataFromForm = [];
+
+  faviconForms.forEach((form) => {
+    const formData = {};
+    formData.title = form.querySelector('[name="title"]').value;
+    formData.origin = form.querySelector('[name="origin"]').value;
+    formData['title-pattern'] = form.querySelector('[name="title-pattern"]').value;
+    formData.base64 = form.querySelector('[name="base64"]').value;
+    dataFromForm.push(formData);
+  });
+  return dataFromForm;
+}
+
+function saveOptions(event) {
+  browser.storage.local.set({ [SETTINGS_KEY]: getFormData() })
+    .then(null, onError);
+  if (event) {
+    event.preventDefault();
+  }
+}
 
 function deleteForm(e) {
   e.preventDefault();
@@ -95,29 +109,6 @@ function addForm(event) {
     $newForm.querySelector('.placeholder').removeChild($img);
   }
   $form.insertBefore($newForm, $lastForm.nextSibling);
-};
-
-function getFormData() {
-  const faviconForms = $form.querySelectorAll('.favicon-form');
-  const dataFromForm = [];
-
-  faviconForms.forEach((form) => {
-    const formData = {};
-    formData['title'] = form.querySelector('[name="title"]').value;
-    formData['origin'] = form.querySelector('[name="origin"]').value;
-    formData['title-pattern'] = form.querySelector('[name="title-pattern"]').value;
-    formData['base64'] = form.querySelector('[name="base64"]').value;
-    dataFromForm.push(formData);
-  });
-  return dataFromForm;
-}
-
-function saveOptions(event) {
-  browser.storage.local.set({[SETTINGS_KEY]: getFormData()})
-    .then(null, onError);
-  if (event) {
-    event.preventDefault();
-  }
 }
 
 function restoreOptions() {
@@ -126,7 +117,7 @@ function restoreOptions() {
       const resultData = results[SETTINGS_KEY];
       let $faviconForms = $form.querySelectorAll('.favicon-form');
       const missingCount = resultData.length - $faviconForms.length;
-      for (let i=0; i<missingCount; i++) {
+      for (let i = 0; i < missingCount; i++) {
         addForm();
       }
       // Refresh forms lookup.
@@ -153,7 +144,7 @@ function restoreOptions() {
 
 (function init() {
   restoreOptions();
-  document.querySelector("#custom-favicons")
-    .addEventListener("submit", saveOptions);
+  document.querySelector('#custom-favicons')
+    .addEventListener('submit', saveOptions);
   $addButton.onclick = addForm;
-})();
+}());

@@ -6,5 +6,16 @@
   "repository": "https://github.com/muffinresearch/favicon-customizer",
   "author": "Stuart Colville <scolville@mozilla.com>",
   "license": "MPL-2.0",
-  "private": true
+  "private": true,
+  "devDependencies": {
+    "eslint": "^4.11.0",
+    "eslint-config-amo": "^1.0.0",
+    "web-ext": "^2.2.2"
+  },
+  "scripts": {
+    "eslint": "eslint .",
+    "webext:lint": "web-ext lint -s src/",
+    "build": "web-ext build -s src/ -a build/",
+    "lint": "yarn eslint && yarn webext:lint"
+  }
 }
