@@ -1,0 +1,10 @@
+{
+  "name": "favicon-customizer",
+  "version": "0.0.1",
+  "description": "A web extension for customizing site favicons",
+  "main": "index.js",
+  "repository": "https://github.com/muffinresearch/favicon-customizer",
+  "author": "Stuart Colville <scolville@mozilla.com>",
+  "license": "MPL-2.0",
+  "private": true
+}
