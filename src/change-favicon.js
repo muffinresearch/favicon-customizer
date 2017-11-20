@@ -25,9 +25,11 @@ function clearFavicons() {
 }
 
 function handleMessage(request) {
-  if (request.dataURI) {
+  if (request.dataURI && request.dataURI.startsWith('data:image/png')) {
     clearFavicons();
     createFavicon(request.dataURI);
+  } else {
+    console.error(`Content wasn't a png so this is a no-op`);
   }
 }
 

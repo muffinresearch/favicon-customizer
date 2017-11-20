@@ -33,6 +33,15 @@ $form.onchange = (e) => {
       const placeholder = $wrapper.querySelector('.placeholder');
       let img = placeholder.querySelector('img');
       let newImage = false;
+
+      // If the format is wrong show an alert and bail.
+      if (!reader.result.startsWith('data:image/png')) {
+        $target.value = '';
+        // eslint-disable-next-line no-alert
+        window.alert('Invalid image format - only *.png accepted.');
+        return;
+      }
+
       $wrapper.querySelector('.base64').value = reader.result;
       if (!img) {
         img = document.createElement('img');
