@@ -24,12 +24,14 @@ function clearFavicons() {
   }
 }
 
-function handleMessage(request) {
-  if (request.dataURI && request.dataURI.startsWith('data:image/png')) {
-    clearFavicons();
-    createFavicon(request.dataURI);
-  } else {
-    console.error(`Content wasn't a png so this is a no-op`);
+function handleMessage(request, sender) {
+  if (sender.extensionId === 'favicon-customizer@muffinresearch.co.uk') {
+    if (request.dataURI && request.dataURI.startsWith('data:image/png')) {
+      clearFavicons();
+      createFavicon(request.dataURI);
+    } else {
+      console.error(`Content wasn't a png so this is a no-op`);
+    }
   }
 }
 
