@@ -8,7 +8,7 @@ function onError(error) {
 function handleTabChange(tabId, changeInfo, tab) {
   // Inspect the tab when it's completely loaded and find out if we need
   // to make a favicon change.
-  if (changeInfo && changeInfo.status && changeInfo.status === 'complete') {
+  if (changeInfo && changeInfo.status && changeInfo.status === 'complete' && faviconData) {
     faviconData.forEach((item) => {
       let tabMatched = false;
       if (tab.url.startsWith(item.origin)) {
@@ -19,10 +19,7 @@ function handleTabChange(tabId, changeInfo, tab) {
       }
 
       if (tabMatched && item.base64) {
-        const executing = browser.tabs.executeScript({
-          file: '/change-favicon.js',
-        });
-        executing
+        browser.tabs.executeScript({ file: '/change-favicon.js' })
           .then(() => {
             return browser.tabs.sendMessage(tab.id, { dataURI: item.base64 });
           })
