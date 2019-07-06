@@ -1,7 +1,7 @@
 {
   "name": "favicon-customizer",
   "description": "This extension allows you to customize the favicon for a given url + optional page title match.",
-  "version": "0.4",
+  "version": "0.5",
   "manifest_version": 2,
   "applications": {
     "gecko": {
