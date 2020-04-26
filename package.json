@@ -10,7 +10,7 @@
   "devDependencies": {
     "eslint": "6.5.0",
     "eslint-config-amo": "1.22.0",
-    "web-ext": "3.2.1"
+    "web-ext": "4.2.0"
   },
   "scripts": {
     "eslint": "eslint .",
