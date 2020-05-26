@@ -9,7 +9,7 @@
   "private": true,
   "devDependencies": {
     "eslint": "6.5.0",
-    "eslint-config-amo": "1.22.0",
+    "eslint-config-amo": "3.0.0",
     "web-ext": "4.2.0"
   },
   "scripts": {
