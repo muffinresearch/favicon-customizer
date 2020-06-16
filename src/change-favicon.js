@@ -1,8 +1,6 @@
-const d = document;
-const h = document.getElementsByTagName('head')[0];
-
 function createFavicon(dataURI) {
-  const lnk = d.createElement('link');
+  const h = document.getElementsByTagName('head')[0];
+  const lnk = document.createElement('link');
   lnk.rel = 'shortcut icon';
   lnk.type = 'image/x-icon';
   lnk.href = dataURI;
@@ -11,6 +9,7 @@ function createFavicon(dataURI) {
 
 // Remove any existing favicons
 function clearFavicons() {
+  const h = document.getElementsByTagName('head')[0];
   const links = h.getElementsByTagName('link');
   const listOfRemovals = [];
   for (let i = 0, j = links.length; i < j; i++) {

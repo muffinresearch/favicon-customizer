@@ -5,10 +5,25 @@ function onError(error) {
   console.error(`Error: ${error}`);
 }
 
+function changeFavicon(tab, faviconItem) {
+  browser.tabs.executeScript({ file: '/change-favicon.js' })
+    .then(() => {
+      return browser.tabs.sendMessage(tab.id, { dataURI: faviconItem.base64 });
+    })
+    .catch(onError);
+}
+
 function handleTabChange(tabId, changeInfo, tab) {
   // Inspect the tab when it's completely loaded and find out if we need
   // to make a favicon change.
-  if (changeInfo && changeInfo.status && changeInfo.status === 'complete') {
+  if (!faviconData || !changeInfo) {
+    return;
+  }
+
+  const isComplete = changeInfo.status && changeInfo.status === 'complete';
+  const isFavIconUpdate = !!changeInfo.favIconUrl; // don't let the site reset the icon
+
+  if (isComplete || isFavIconUpdate) {
     faviconData.forEach((item) => {
       let tabMatched = false;
       if (tab.url.startsWith(item.origin)) {
@@ -19,14 +34,17 @@ function handleTabChange(tabId, changeInfo, tab) {
       }
 
       if (tabMatched && item.base64) {
-        const executing = browser.tabs.executeScript({
-          file: '/change-favicon.js',
-        });
-        executing
-          .then(() => {
-            return browser.tabs.sendMessage(tab.id, { dataURI: item.base64 });
-          })
-          .catch(onError);
+        changeFavicon(tab, item);
+
+        // watch for the <link> favicon changing dynamically
+        const link = document.querySelector('link[rel="shortcut icon"]');
+        if (link) {
+          const MutationObserver = window.MutationObserver
+                                   || window.WebKitMutationObserver
+                                   || window.MozMutationObserver;
+          const observer = new MutationObserver(() => changeFavicon(tab, item));
+          observer.observe(link, { attributes: true });
+        }
       }
     });
   }
