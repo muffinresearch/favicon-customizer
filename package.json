@@ -8,7 +8,7 @@
   "license": "MPL-2.0",
   "private": true,
   "devDependencies": {
-    "eslint": "7.9.0",
+    "eslint": "7.10.0",
     "eslint-config-amo": "3.7.0",
     "web-ext": "5.1.0"
   },
