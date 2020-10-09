@@ -10,12 +10,15 @@
   "devDependencies": {
     "eslint": "7.10.0",
     "eslint-config-amo": "3.7.0",
+    "stylelint": "13.7.2",
+    "stylelint-config-standard": "20.0.0",
     "web-ext": "5.2.0"
   },
   "scripts": {
-    "eslint": "eslint .",
-    "webext:lint": "web-ext lint -s src/",
     "build": "web-ext build -s src/ -a build/",
-    "lint": "yarn eslint && yarn webext:lint"
+    "eslint": "eslint .",
+    "lint": "yarn eslint && yarn webext:lint",
+    "start": "web-ext run -s src/",
+    "webext:lint": "web-ext lint -s src/"
   }
 }

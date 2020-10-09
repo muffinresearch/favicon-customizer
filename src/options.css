@@ -1,4 +1,20 @@
-body, html {
+body {
+  color: #666;
+}
+
+p.help {
+  color: #999;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background: #202023;
+    color: rgb(249, 249, 250);
+  }
+}
+
+body,
+html {
   padding: 0;
   margin: 0;
 }
@@ -8,21 +24,22 @@ h2 {
   font-size: 18px;
   font-weight: 200;
   padding-bottom: 5px;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid rgba(12, 12, 13, 0.3);
 }
 
 .placeholder {
   width: 64px;
   height: 64px;
   background: #eee;
-  border: 1px solid #ccc;
+  border: 1px solid rgba(12, 12, 13, 0.3);
   margin-left: 10px;
   position: relative;
   box-sizing: content-box;
 }
 
 .placeholder:not(:empty):hover::before {
-  content: '🗑';
+  background: rgba(255, 255, 255, 0.7);
+  content: ' ';
   display: block;
   line-height: 65px;
   text-align: center;
@@ -31,7 +48,6 @@ h2 {
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(255,255,255, 0.7);
 }
 
 label {
@@ -53,21 +69,19 @@ label span {
 
 input {
   flex-grow: 1;
+  border: 1px solid #c1c1c1;
+  min-height: 1.5em;
+  padding: 0.2em;
 }
 
 input[type="url"] {
   font-family: inherit;
   font-size: inherit;
-  padding: 5px 10px;
-  -moz-appearance: none;
-  color: var(--in-content-text-color);
-  border: 1px solid var(--in-content-box-border-color);
 }
 
 input:invalid {
   box-shadow: none;
 }
-
 
 hr {
   border: 1px solid #c1c1c1;
@@ -75,9 +89,9 @@ hr {
 }
 
 button {
-  padding-right: 10px;
-  padding-left: 10px;
+  padding: 0.5em 1em;
 }
+
 
 .remove-button {
   display: block;
