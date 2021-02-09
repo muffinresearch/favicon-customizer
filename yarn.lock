@@ -1927,10 +1927,10 @@ eslint-config-airbnb@18.2.1:
     object.assign "^4.1.2"
     object.entries "^1.1.2"
 
-eslint-config-amo@4.1.0:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/eslint-config-amo/-/eslint-config-amo-4.1.0.tgz#06681fac117507abcfdfe767417cbfe04d5d8fc2"
-  integrity sha512-qgA1Upr1gLcyvY33iQPT9K+5dCUK7fBXw+ipAAGIvL3STnB3mLUKReiTx94uAbaFGSmTGsqA3HfZ8TkecYUjBA==
+eslint-config-amo@4.2.0:
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/eslint-config-amo/-/eslint-config-amo-4.2.0.tgz#956f3105d1ece937da2fb9ccf20274df3cdd4d0b"
+  integrity sha512-GHHoj3wq2cyp3b6tPEbAcPgYRDnM+6WKgGLjIdzi8kamkcCJ6CnMn5cKqdU2AIPZXdxhYhSha+kOF/nIiudQOQ==
   dependencies:
     eslint-config-airbnb "18.2.1"
     eslint-config-prettier "7.2.0"
