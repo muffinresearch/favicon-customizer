@@ -10,7 +10,7 @@
   "devDependencies": {
     "eslint": "7.20.0",
     "eslint-config-amo": "4.2.0",
-    "stylelint": "13.10.0",
+    "stylelint": "13.11.0",
     "stylelint-config-standard": "20.0.0",
     "web-ext": "5.5.0"
   },
