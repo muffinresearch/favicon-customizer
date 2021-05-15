@@ -9,7 +9,7 @@
   "private": true,
   "devDependencies": {
     "eslint": "7.26.0",
-    "eslint-config-amo": "4.5.0",
+    "eslint-config-amo": "4.6.0",
     "stylelint": "13.13.1",
     "stylelint-config-standard": "20.0.0",
     "web-ext": "5.5.0"
